@@ -8,6 +8,10 @@
 
 'use strict';
 
+function debug(a) {
+  console.log('[$$$$LEANDEBUG$$$$]', a);
+}
+
 var tool = require('./tool');
 var ajax = tool.ajax;
 var extend = tool.extend;
@@ -639,12 +643,14 @@ engine.wsSend = function(cache, data) {
 };
 
 engine.createSocket = function(cache, server) {
+  debug('createSocket');
   if (cache.ws) {
     cache.ws.close();
   }
   var ws = new config.WebSocket(server);
   cache.ws = ws;
   ws.addEventListener('open', function() {
+    debug('socketOpened');
     engine.wsOpen(cache);
   });
   ws.addEventListener('close', function(event) {
@@ -724,6 +730,7 @@ engine.connect = function(cache, options) {
 };
 
 engine.getServer = function(cache, options, callback) {
+  debug('getServer');
   var appId = options.appId;
   // 是否获取 wss 的安全链接
   var secure = options.secure;
@@ -749,6 +756,7 @@ engine.getServer = function(cache, options, callback) {
     url += '&secure=1';
   }
   ajax(url, function(error, data) {
+    debug('getServer callback with' + data.server);
     if (data) {
       data.expires = tool.now() + data.ttl * 1000;
       cache.server = data;
