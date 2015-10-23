@@ -18,6 +18,10 @@ AV.realtime = require('./realtime');
 
 'use strict';
 
+function debug(a) {
+  console.log('[$$LEANDEBUG$$]', a);
+}
+
 var tool = require('./tool');
 var ajax = tool.ajax;
 var extend = tool.extend;
@@ -620,6 +624,7 @@ engine.wsClose = function (cache, event) {
 // WebSocket Message
 engine.wsMessage = function (cache, msg) {
   var data = JSON.parse(msg.data);
+  debug(msg.data);
 
   // 对服务端返回的数据进行逻辑包装
   if (data.cmd) {
@@ -653,8 +658,10 @@ engine.createSocket = function (cache, server) {
     cache.ws.close();
   }
   var ws = new config.WebSocket(server);
+  debug('createSocket');
   cache.ws = ws;
   ws.addEventListener('open', function () {
+    debug('socketOpened');
     engine.wsOpen(cache);
   });
   ws.addEventListener('close', function (event) {
@@ -734,6 +741,7 @@ engine.connect = function (cache, options) {
 };
 
 engine.getServer = function (cache, options, callback) {
+  debug('getServer');
   var appId = options.appId;
   // 是否获取 wss 的安全链接
   var secure = options.secure;
@@ -759,6 +767,7 @@ engine.getServer = function (cache, options, callback) {
     url += '&secure=1';
   }
   ajax(url, function (error, data) {
+    debug('getServer callback with' + data.server);
     if (data) {
       data.expires = tool.now() + data.ttl * 1000;
       cache.server = data;
