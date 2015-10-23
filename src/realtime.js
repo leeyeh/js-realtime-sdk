@@ -638,6 +638,7 @@ engine.wsSend = function(cache, data) {
       throw new Error('The realtimeObject must opened first. Please listen to the "open" event.');
     } else {
       data.peerId = cache.options.peerId;
+      debug(JSON.stringify(data));
       cache.ws.send(JSON.stringify(data));
     }
   }
