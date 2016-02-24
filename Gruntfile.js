@@ -31,22 +31,22 @@ var require = require || function(id) {throw new Error('Unexpected required ' + 
   };
 
   var SAUCE_BROWSERS = [{
-    browserName: 'chrome'
-  }, {
-    browserName: 'firefox',
-    version: 'beta'
-  }, {
-    browserName: 'iPhone',
-    version: '8.0'
-  }, {
-    browserName: 'android',
-    version: '4.4'
-  }, {
+  //  browserName: 'chrome'
+  //}, {
+  //  browserName: 'firefox',
+  //  version: 'beta'
+  //}, {
+  //  browserName: 'iPhone',
+  //  version: '8.0'
+  //}, {
+  //  browserName: 'android',
+  //  version: '4.4'
+  //}, {
     browserName: 'internet explorer',
     version: '10.0'
-  }, {
-    browserName: 'chrome',
-    version: '31'
+  //}, {
+  //  browserName: 'chrome',
+  //  version: '31'
   }];
 
   var HINT_SRCS = ['src/**/*.js', 'test/**/*.js', /* 'demo/**\/*.js', */ '!**/browser/**/*.js', '!**/*.browser.js', '!**/*.bundle.js'];
