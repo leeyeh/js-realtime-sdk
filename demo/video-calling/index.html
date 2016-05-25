@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LeanCloud Video Calling App</title>
+  <link rel="stylesheet" href="index.css"/>
+</head>
+<body id="app">
+  <form onsubmit="return false;">
+    <div v-if="!client">
+      <input type="text" v-model="id" placeholder="ID" required/>
+      <button type="submit" v-on:click="login">Login</button>
+    </div>
+    <template v-else>
+      <div id="client">{{ client.id }}</div>
+      <div id="call" v-if="state === 'ready'">
+        <input type="text" v-model="targetId" placeholder="TARGET ID" required/>
+        <button type="submit" v-on:click="call">Call</button>
+      </div>
+      <template v-if="state === 'connected'">
+        <div id="target">
+          {{ targetId }}
+          <button v-on:click="hangup" class="button-error">Hang Up</button>
+        </div>
+      </template>
+    </template>
+  </form>
+  <div id="offer" v-if="offer">
+    {{ offer.from }}
+    <div>
+      <button v-on:click="accept" class="button-success">Accept</button>
+      <button v-on:click="decline" class="button-error">Decline</button>
+    </div>
+  </div>
+  <div id="camera-box" v-show="state === 'connected'">
+    <video id="remote_video" autoplay></video>
+    <video id="local_video" autoplay muted></video>
+  </div>
+  <script src="//cdn.jsdelivr.net/vue/1.0.24/vue.min.js"></script>
+  <script src="//webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="../../dist/realtime.browser.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
