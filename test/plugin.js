@@ -5,7 +5,7 @@ import TypedMessage from '../src/messages/typed-message';
 import TextMessage from '../src/messages/text-message';
 import { messageType } from '../src/messages/helpers';
 
-import { sinon } from './test-utils';
+import { sinon, hold } from './test-utils';
 
 import {
   APP_ID,
@@ -70,7 +70,7 @@ describe('Plugin', () => {
     });
   });
 
-  describe('multi plugins', () => {
+  describe('multi plugins with async middleware', () => {
     let client;
     let realtime;
     before(() => {
@@ -90,6 +90,7 @@ describe('Plugin', () => {
           }),
         }, {
           onRealtimeCreate: patchTestFunction(1, 'test2'),
+          beforeMessageParse: hold(200),
         }],
       });
       return realtime
@@ -159,7 +160,7 @@ describe('Plugin', () => {
           region: REGION,
           pushUnread: false,
           plugins: [{
-            beforeMessageParse: () => undefined,
+            beforeMessageParse: () => Promise.resolve(),
           }],
         })._messageParser.parse(new TextMessage('1').toJSON()),
         new Realtime({
