@@ -77,7 +77,6 @@ npm install leancloud-realtime@3 --save
 
 0.  Fork 这个项目，clone 到本地
 1.  在目录中执行 `npm install` 安装所需 Node.js 依赖包
-1.  执行 `grunt dev` 浏览器打开 [](http://localhost:8000) 本地进行调试
 1.  编码，更新测试用例
 1.  运行 `npm test` 确保测试全部 pass
 1.  提交改动，请遵循 [conversational commit message 风格](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
